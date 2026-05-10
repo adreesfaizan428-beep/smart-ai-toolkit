@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Freelance Hub – AI-Powered Freelance Toolkit</title>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SEO META TAGS
+  ═══════════════════════════════════════════════════════════ -->
+  <meta name="description" content="Smart Freelance Hub is the ultimate AI-powered toolkit for freelancers. Generate proposals, contracts, invoices, and client emails instantly with cutting-edge AI." />
+  <meta name="keywords" content="freelance AI toolkit, AI proposal generator, freelance productivity, smart freelance hub, AI writing tools, contract generator, invoice generator, freelancer tools" />
+  <meta name="author" content="Smart Freelance Hub" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#00ff88" />
+  <link rel="canonical" href="https://smart-freelance-hub.vercel.app/" />
+
+  <!-- Google Site Verification -->
+  <meta name="google-site-verification" content="YOUR_GOOGLE_VERIFICATION_CODE_HERE" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://smart-freelance-hub.vercel.app/" />
+  <meta property="og:title" content="Smart Freelance Hub – AI-Powered Freelance Toolkit" />
+  <meta property="og:description" content="Generate proposals, contracts, and client emails instantly with AI. The premium toolkit built for elite freelancers." />
+  <meta property="og:image" content="https://smart-freelance-hub.vercel.app/og-image.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@SmartFreelanceHub" />
+  <meta name="twitter:title" content="Smart Freelance Hub – AI-Powered Freelance Toolkit" />
+  <meta name="twitter:description" content="Generate proposals, contracts, and client emails instantly with AI." />
+  <meta name="twitter:image" content="https://smart-freelance-hub.vercel.app/og-image.png" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Smart Freelance Hub",
+    "url": "https://smart-freelance-hub.vercel.app/",
+    "description": "AI-powered freelance toolkit for generating proposals, contracts, and client communications.",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Syne:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ═══════════════════════════════════════════════
+       DESIGN TOKENS
+    ═══════════════════════════════════════════════ */
+    :root {
+      --neon: #00ff88;
+      --neon-dim: #00cc6a;
+      --neon-glow: rgba(0, 255, 136, 0.4);
+      --neon-glow-soft: rgba(0, 255, 136, 0.12);
+      --void: #020408;
+      --deep: #050c12;
+      --surface: rgba(8, 20, 32, 0.7);
+      --surface-bright: rgba(12, 28, 44, 0.85);
+      --glass: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(0, 255, 136, 0.18);
+      --text-primary: #e8f4f0;
+      --text-secondary: rgba(200, 230, 218, 0.55);
+      --text-dim: rgba(200, 230, 218, 0.3);
+      --accent-blue: #0088ff;
+      --accent-purple: #7b61ff;
+      --font-display: 'Orbitron', monospace;
+      --font-body: 'Syne', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 16px;
+      --radius-sm: 8px;
+    }
+
+    /* ═══════════════════════════════════════════════
+       RESET & BASE
+    ═══════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--void);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ═══════════════════════════════════════════════
+       CUSTOM CURSOR
+    ═══════════════════════════════════════════════ */
+    .cursor {
+      position: fixed;
+      width: 12px; height: 12px;
+      background: var(--neon);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.08s ease, width 0.2s, height 0.2s, opacity 0.2s;
+      mix-blend-mode: screen;
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 36px; height: 36px;
+      border: 1.5px solid var(--neon-dim);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.18s ease, width 0.25s, height 0.25s, border-color 0.2s;
+      opacity: 0.6;
+    }
+    body:hover .cursor { opacity: 1; }
+
+    /* ═══════════════════════════════════════════════
+       ANIMATED MESH BACKGROUND
+    ═══════════════════════════════════════════════ */
+    .bg-mesh {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(0,255,136,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 80%, rgba(0,136,255,0.06) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 40% at 50% 50%, rgba(123,97,255,0.04) 0%, transparent 50%),
+        linear-gradient(180deg, #020408 0%, #040d14 50%, #020408 100%);
+      animation: meshDrift 18s ease-in-out infinite alternate;
+    }
+    @keyframes meshDrift {
+      0%   { background-position: 0% 0%, 100% 100%, 50% 50%; }
+      33%  { background-position: 10% 20%, 85% 80%, 55% 45%; }
+      66%  { background-position: 5% 40%, 90% 60%, 45% 55%; }
+      100% { background-position: 15% 10%, 80% 90%, 50% 50%; }
+    }
+
+    /* Stars layer */
+    .bg-stars {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        radial-gradient(1px 1px at 15% 22%, rgba(0,255,136,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 73% 8%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 40% 65%, rgba(0,136,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 45%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 60% 90%, rgba(0,255,136,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 25% 80%, rgba(255,255,255,0.2) 0%, transparent 100%),
+        radial-gradient(1px 1px at 55% 30%, rgba(123,97,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 82% 70%, rgba(255,255,255,0.3) 0%, transparent 100%);
+      animation: starsTwinkle 6s ease-in-out infinite alternate;
+    }
+    @keyframes starsTwinkle {
+      0%   { opacity: 0.6; }
+      50%  { opacity: 1; }
+      100% { opacity: 0.7; }
+    }
+
+    /* Scanline overlay */
+    .bg-scanlines {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.08) 2px,
+        rgba(0,0,0,0.08) 4px
+      );
+      pointer-events: none;
+    }
+
+    /* ═══════════════════════════════════════════════
+       PAGE LAYOUT
+    ═══════════════════════════════════════════════ */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 1.5rem 4rem;
+    }
+
+    /* ═══════════════════════════════════════════════
+       AD ZONES
+    ═══════════════════════════════════════════════ */
+    .ad-zone {
+      width: 100%;
+      max-width: 900px;
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      background: rgba(0, 255, 136, 0.025);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      position: relative;
+      overflow: hidden;
+      animation: floatSubtle 8s ease-in-out infinite;
+    }
+    .ad-zone::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(0,255,136,0.03) 50%, transparent);
+      animation: adShimmer 3s ease-in-out infinite;
+    }
+    @keyframes adShimmer {
+      0%   { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    .ad-zone-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--neon);
+      text-transform: uppercase;
+      opacity: 0.5;
+      position: absolute;
+      top: 6px; left: 12px;
+    }
+    .ad-zone-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--neon);
+      opacity: 0.6;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .ad-zone-text {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+    }
+    .ad-zone.top { animation-delay: 0s; }
+    .ad-zone.middle { animation-delay: 2s; }
+    .ad-zone.bottom { animation-delay: 4s; }
+
+    /* ═══════════════════════════════════════════════
+       HEADER / HERO
+    ═══════════════════════════════════════════════ */
+    header {
+      width: 100%;
+      max-width: 900px;
+      padding: 3.5rem 0 2rem;
+      text-align: center;
+      animation: heroReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    @keyframes heroReveal {
+      from { opacity: 0; transform: translateY(-30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 1rem;
+      border: 1px solid var(--glass-border);
+      border-radius: 100px;
+      background: var(--surface);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--neon);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(12px);
+    }
+    .status-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--neon);
+      animation: pulse 1.5s ease-in-out infinite;
+      box-shadow: 0 0 6px var(--neon);
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .site-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 5vw, 3.4rem);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      line-height: 1.1;
+      color: #fff;
+      text-shadow:
+        0 0 20px var(--neon-glow),
+        0 0 60px rgba(0,255,136,0.2),
+        0 0 120px rgba(0,255,136,0.1);
+      animation: titleGlow 4s ease-in-out infinite alternate;
+      position: relative;
+    }
+    .site-title span { color: var(--neon); }
+
+    @keyframes titleGlow {
+      from { text-shadow: 0 0 20px var(--neon-glow), 0 0 60px rgba(0,255,136,0.2); }
+      to   { text-shadow: 0 0 30px var(--neon-glow), 0 0 80px rgba(0,255,136,0.3), 0 0 140px rgba(0,255,136,0.1); }
+    }
+
+    .title-underline {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon), transparent);
+      margin: 1rem auto;
+      animation: lineExpand 2s ease-out 0.5s both;
+    }
+    @keyframes lineExpand {
+      from { width: 0; opacity: 0; }
+      to   { width: 60px; opacity: 1; }
+    }
+
+    .site-tagline {
+      font-family: var(--font-body);
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      font-weight: 300;
+      color: var(--text-secondary);
+      letter-spacing: 0.05em;
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════════════════════
+       3D TABLET / TOOL SECTION
+    ═══════════════════════════════════════════════ */
+    .toolkit-3d-wrapper {
+      width: 100%;
+      max-width: 760px;
+      perspective: 1200px;
+      animation: float3D 6s ease-in-out infinite, toolkitReveal 1s cubic-bezier(0.16,1,0.3,1) 0.3s both;
+    }
+    @keyframes float3D {
+      0%   { transform: translateY(0px); }
+      50%  { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    @keyframes toolkitReveal {
+      from { opacity: 0; transform: translateY(40px) rotateX(8deg); }
+      to   { opacity: 1; transform: translateY(0) rotateX(0); }
+    }
+
+    .toolkit-tablet {
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 2.5rem;
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      box-shadow:
+        0 0 0 1px rgba(0,255,136,0.08),
+        0 20px 60px rgba(0,0,0,0.6),
+        0 0 80px rgba(0,255,136,0.06),
+        inset 0 1px 0 rgba(255,255,255,0.06);
+      transform: rotateX(3deg) rotateY(-1deg);
+      transform-style: preserve-3d;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .toolkit-tablet::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,255,136,0.5), rgba(0,255,136,0.8), rgba(0,255,136,0.5), transparent);
+    }
+    .toolkit-tablet::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 40% at 50% 0%, rgba(0,255,136,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .toolkit-tablet:hover {
+      transform: rotateX(1deg) rotateY(0deg) translateY(-4px);
+      box-shadow:
+        0 0 0 1px rgba(0,255,136,0.15),
+        0 30px 80px rgba(0,0,0,0.7),
+        0 0 120px rgba(0,255,136,0.1),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+
+    .tool-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.75rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .tool-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--neon);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .tool-label::before {
+      content: '';
+      display: block;
+      width: 16px; height: 1px;
+      background: var(--neon);
+      box-shadow: 0 0 6px var(--neon);
+    }
+
+    /* Tool selector tabs */
+    .tool-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .tool-tab {
+      padding: 0.4rem 0.85rem;
+      border: 1px solid rgba(0,255,136,0.15);
+      border-radius: 100px;
+      background: transparent;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-transform: uppercase;
+    }
+    .tool-tab:hover,
+    .tool-tab.active {
+      border-color: var(--neon);
+      color: var(--neon);
+      background: rgba(0,255,136,0.08);
+      box-shadow: 0 0 12px rgba(0,255,136,0.15);
+    }
+
+    /* Textarea */
+    .input-group {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    .input-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .neon-textarea {
+      width: 100%;
+      min-height: 140px;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(0,255,136,0.2);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text-primary);
+      line-height: 1.6;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+      backdrop-filter: blur(8px);
+    }
+    .neon-textarea::placeholder {
+      color: var(--text-dim);
+      font-style: italic;
+    }
+    .neon-textarea:focus {
+      border-color: var(--neon);
+      background: rgba(0,10,8,0.6);
+      box-shadow:
+        0 0 0 1px rgba(0,255,136,0.3),
+        0 0 20px rgba(0,255,136,0.12),
+        0 0 40px rgba(0,255,136,0.06),
+        inset 0 0 20px rgba(0,255,136,0.03);
+      animation: borderPulse 2s ease-in-out infinite;
+    }
+    @keyframes borderPulse {
+      0%, 100% { box-shadow: 0 0 0 1px rgba(0,255,136,0.3), 0 0 20px rgba(0,255,136,0.12), 0 0 40px rgba(0,255,136,0.06); }
+      50%       { box-shadow: 0 0 0 1px rgba(0,255,136,0.5), 0 0 30px rgba(0,255,136,0.2), 0 0 60px rgba(0,255,136,0.1); }
+    }
+
+    /* Character counter */
+    .char-counter {
+      position: absolute;
+      bottom: 10px; right: 14px;
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+      pointer-events: none;
+      transition: color 0.3s;
+    }
+    .char-counter.warning { color: #ffaa00; }
+    .char-counter.danger  { color: #ff4444; }
+
+    /* Options row */
+    .options-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .select-field {
+      flex: 1;
+      min-width: 130px;
+    }
+    .select-field label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .neon-select {
+      width: 100%;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(0,255,136,0.2);
+      border-radius: var(--radius-sm);
+      padding: 0.6rem 0.85rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-primary);
+      outline: none;
+      cursor: pointer;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2300ff88'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      padding-right: 2rem;
+    }
+    .neon-select option { background: #05111a; color: var(--text-primary); }
+    .neon-select:focus { border-color: var(--neon); box-shadow: 0 0 12px rgba(0,255,136,0.15); }
+
+    /* Generate button */
+    .btn-generate {
+      width: 100%;
+      padding: 1rem 2rem;
+      background: transparent;
+      border: 1px solid var(--neon);
+      border-radius: var(--radius);
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--neon);
+      text-transform: uppercase;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px rgba(0,255,136,0.15), inset 0 0 20px rgba(0,255,136,0.03);
+      z-index: 0;
+    }
+    .btn-generate::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,255,136,0.12) 0%, rgba(0,255,136,0.05) 50%, rgba(0,136,255,0.08) 100%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: -1;
+    }
+    .btn-generate::after {
+      content: '';
+      position: absolute;
+      top: -50%; left: -60%;
+      width: 40%; height: 200%;
+      background: linear-gradient(90deg, transparent, rgba(0,255,136,0.2), transparent);
+      transform: skewX(-20deg);
+      animation: btnSheen 4s ease-in-out infinite;
+    }
+    @keyframes btnSheen {
+      0%   { left: -60%; }
+      40%, 100% { left: 140%; }
+    }
+    .btn-generate:hover {
+      background: rgba(0,255,136,0.08);
+      box-shadow: 0 0 30px rgba(0,255,136,0.3), 0 0 60px rgba(0,255,136,0.1), inset 0 0 30px rgba(0,255,136,0.05);
+      transform: translateY(-2px);
+      color: #fff;
+    }
+    .btn-generate:hover::before { opacity: 1; }
+    .btn-generate:active { transform: translateY(0); }
+    .btn-generate.loading {
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    /* Ripple */
+    .ripple-effect {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(0,255,136,0.35);
+      transform: scale(0);
+      animation: ripple 0.7s linear;
+      pointer-events: none;
+    }
+    @keyframes ripple {
+      to { transform: scale(4); opacity: 0; }
+    }
+
+    /* Loading spinner inside button */
+    .btn-spinner {
+      display: inline-block;
+      width: 14px; height: 14px;
+      border: 2px solid rgba(0,255,136,0.3);
+      border-top-color: var(--neon);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ═══════════════════════════════════════════════
+       OUTPUT AREA
+    ═══════════════════════════════════════════════ */
+    .output-wrapper {
+      width: 100%;
+      max-width: 760px;
+      margin-top: 1.5rem;
+      animation: float3D 6s ease-in-out 2s infinite, fadeSlideIn 0.6s ease both;
+      display: none;
+    }
+    .output-wrapper.visible { display: block; }
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .output-card {
+      background: var(--surface-bright);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 60px rgba(0,255,136,0.05);
+      position: relative;
+    }
+    .output-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,255,136,0.6), transparent);
+    }
+
+    .output-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid rgba(0,255,136,0.08);
+      background: rgba(0,0,0,0.2);
+    }
+    .output-title {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--neon);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .output-title::before {
+      content: '▶';
+      font-size: 0.5rem;
+    }
+    .btn-copy {
+      padding: 0.35rem 0.85rem;
+      border: 1px solid rgba(0,255,136,0.25);
+      border-radius: var(--radius-sm);
+      background: transparent;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.25s;
+      text-transform: uppercase;
+    }
+    .btn-copy:hover {
+      border-color: var(--neon);
+      color: var(--neon);
+      background: rgba(0,255,136,0.06);
+    }
+    .btn-copy.copied {
+      border-color: var(--neon);
+      color: var(--neon);
+      background: rgba(0,255,136,0.1);
+    }
+
+    .output-content {
+      padding: 1.5rem;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: var(--text-primary);
+      white-space: pre-wrap;
+      min-height: 120px;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+    .output-content::-webkit-scrollbar { width: 4px; }
+    .output-content::-webkit-scrollbar-track { background: transparent; }
+    .output-content::-webkit-scrollbar-thumb { background: rgba(0,255,136,0.3); border-radius: 2px; }
+
+    /* Typing cursor */
+    .typing-cursor {
+      display: inline-block;
+      width: 2px; height: 1em;
+      background: var(--neon);
+      vertical-align: text-bottom;
+      animation: blink 0.8s step-end infinite;
+      margin-left: 2px;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    /* ═══════════════════════════════════════════════
+       FEATURES / CARDS SECTION
+    ═══════════════════════════════════════════════ */
+    .section-label {
+      width: 100%;
+      max-width: 900px;
+      margin: 3rem 0 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .section-label h2 {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(0,255,136,0.3), transparent);
+    }
+
+    .cards-grid {
+      width: 100%;
+      max-width: 900px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+      position: relative;
+      overflow: hidden;
+      animation: floatSubtle 7s ease-in-out infinite;
+      cursor: default;
+    }
+    .feature-card:nth-child(2) { animation-delay: 1.2s; }
+    .feature-card:nth-child(3) { animation-delay: 2.4s; }
+    .feature-card:nth-child(4) { animation-delay: 0.6s; }
+    .feature-card:nth-child(5) { animation-delay: 1.8s; }
+    .feature-card:nth-child(6) { animation-delay: 3s; }
+    @keyframes floatSubtle {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-6px); }
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+    }
+    .feature-card:hover {
+      transform: translateY(-8px) !important;
+      border-color: rgba(0,255,136,0.35);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px rgba(0,255,136,0.08);
+    }
+
+    .card-icon {
+      width: 40px; height: 40px;
+      border: 1px solid rgba(0,255,136,0.25);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      background: rgba(0,255,136,0.06);
+      box-shadow: 0 0 15px rgba(0,255,136,0.1);
+    }
+    .card-name {
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--neon);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .card-desc {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* ═══════════════════════════════════════════════
+       STATS ROW
+    ═══════════════════════════════════════════════ */
+    .stats-bar {
+      width: 100%;
+      max-width: 900px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1px;
+      background: rgba(0,255,136,0.08);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    .stat-cell {
+      background: var(--surface);
+      padding: 1.5rem 1rem;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      transition: background 0.3s;
+    }
+    .stat-cell:hover { background: var(--surface-bright); }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--neon);
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 20px rgba(0,255,136,0.4);
+    }
+    .stat-lbl {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      margin-top: 0.25rem;
+    }
+
+    /* ═══════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════ */
+    footer {
+      width: 100%;
+      max-width: 900px;
+      padding: 2rem 0 1rem;
+      text-align: center;
+      border-top: 1px solid rgba(0,255,136,0.08);
+      margin-top: 1rem;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 900;
+      letter-spacing: 0.15em;
+      color: var(--neon);
+      margin-bottom: 0.75rem;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .footer-links a {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--neon); }
+    .footer-copy {
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+      letter-spacing: 0.08em;
+    }
+
+    /* ═══════════════════════════════════════════════
+       TOAST NOTIFICATION
+    ═══════════════════════════════════════════════ */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      padding: 0.75rem 1.25rem;
+      background: var(--surface-bright);
+      border: 1px solid var(--neon);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--neon);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 0 30px rgba(0,255,136,0.2);
+      transform: translateX(120%);
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+      z-index: 1000;
+      text-transform: uppercase;
+    }
+    .toast.show { transform: translateX(0); }
+
+    /* ═══════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════ */
+    @media (max-width: 640px) {
+      .toolkit-tablet { padding: 1.5rem; }
+      .tool-header-row { gap: 0.75rem; }
+      .options-row { flex-direction: column; }
+      .select-field { min-width: unset; }
+      body { cursor: auto; }
+      .cursor, .cursor-ring { display: none; }
+      .site-title { letter-spacing: 0.04em; }
+    }
+
+    /* ═══════════════════════════════════════════════
+       SCROLLBAR GLOBAL
+    ═══════════════════════════════════════════════ */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--void); }
+    ::-webkit-scrollbar-thumb { background: rgba(0,255,136,0.25); border-radius: 2px; }
+  </style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Background Layers -->
+<div class="bg-mesh" aria-hidden="true"></div>
+<div class="bg-stars" aria-hidden="true"></div>
+<div class="bg-scanlines" aria-hidden="true"></div>
+
+<!-- Toast -->
+<div class="toast" id="toast">Copied to Clipboard</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE
+═══════════════════════════════════════════════ -->
+<div class="page" role="main">
+
+  <!-- ── AD ZONE: TOP ── -->
+  <div class="ad-zone top" role="complementary" aria-label="Advertisement">
+    <span class="ad-zone-label">AD</span>
+    <div class="ad-zone-dot"></div>
+    <span class="ad-zone-text">Loading Advertisement...</span>
+    <!-- Replace content below with your ad code (e.g., Google AdSense) -->
+    <!-- <ins class="adsbygoogle" ...></ins> -->
+  </div>
+
+  <!-- ── HEADER ── -->
+  <header>
+    <div class="status-pill">
+      <span class="status-dot"></span>
+      AI Systems Online · v2.4.1
+    </div>
+    <h1 class="site-title">SMART<br/><span>FREELANCE</span> HUB</h1>
+    <div class="title-underline"></div>
+    <p class="site-tagline">The AI-powered command center for elite freelancers. Generate proposals, contracts, invoices, and emails — instantly.</p>
+  </header>
+
+  <!-- ── STATS BAR ── -->
+  <div class="stats-bar" aria-label="Platform statistics">
+    <div class="stat-cell">
+      <div class="stat-num" data-target="12400">0</div>
+      <div class="stat-lbl">Docs Generated</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num" data-target="3200">0</div>
+      <div class="stat-lbl">Freelancers</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">99.9<span style="font-size:0.9rem">%</span></div>
+      <div class="stat-lbl">Uptime</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">&lt;2<span style="font-size:0.9rem">s</span></div>
+      <div class="stat-lbl">Avg. Response</div>
+    </div>
+  </div>
+
+  <!-- ── MAIN TOOLKIT: 3D TABLET ── -->
+  <div class="toolkit-3d-wrapper" id="toolkitWrapper">
+    <div class="toolkit-tablet" id="toolkitTablet">
+      <!-- Header row -->
+      <div class="tool-header-row">
+        <div class="tool-label">AI Generation Module</div>
+        <div class="tool-tabs" role="tablist" aria-label="Tool type">
+          <button class="tool-tab active" data-type="proposal" role="tab" aria-selected="true">Proposal</button>
+          <button class="tool-tab" data-type="contract" role="tab">Contract</button>
+          <button class="tool-tab" data-type="invoice" role="tab">Invoice</button>
+          <button class="tool-tab" data-type="email" role="tab">Email</button>
+          <button class="tool-tab" data-type="bio" role="tab">Bio</button>
+        </div>
+      </div>
+
+      <!-- Textarea -->
+      <div class="input-group">
+        <label class="input-label" for="userInput">Describe your project or request</label>
+        <textarea
+          class="neon-textarea"
+          id="userInput"
+          maxlength="1000"
+          placeholder="e.g. I need a proposal for a 4-week web redesign project for a fintech startup. Budget $8,000. Include timeline, deliverables, and payment terms..."
+          aria-label="Input for AI generation"
+        ></textarea>
+        <div class="char-counter" id="charCounter">0 / 1000</div>
+      </div>
+
+      <!-- Options -->
+      <div class="options-row">
+        <div class="select-field">
+          <label for="toneSelect">Tone</label>
+          <select class="neon-select" id="toneSelect" aria-label="Select tone">
+            <option value="professional">Professional</option>
+            <option value="confident">Confident</option>
+            <option value="friendly">Friendly</option>
+            <option value="formal">Formal</option>
+            <option value="persuasive">Persuasive</option>
+          </select>
+        </div>
+        <div class="select-field">
+          <label for="lengthSelect">Length</label>
+          <select class="neon-select" id="lengthSelect" aria-label="Select length">
+            <option value="concise">Concise</option>
+            <option value="standard">Standard</option>
+            <option value="detailed">Detailed</option>
+          </select>
+        </div>
+        <div class="select-field">
+          <label for="industrySelect">Industry</label>
+          <select class="neon-select" id="industrySelect" aria-label="Select industry">
+            <option value="tech">Tech / SaaS</option>
+            <option value="design">Design / UX</option>
+            <option value="marketing">Marketing</option>
+            <option value="finance">Finance</option>
+            <option value="ecommerce">E-commerce</option>
+            <option value="healthcare">Healthcare</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Generate button -->
+      <button class="btn-generate" id="generateBtn" aria-label="Generate AI content">
+        <span id="btnText">⚡ GENERATE WITH AI</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ── OUTPUT AREA ── -->
+  <div class="output-wrapper" id="outputWrapper">
+    <div class="output-card">
+      <div class="output-toolbar">
+        <div class="output-title" id="outputTitle">AI OUTPUT</div>
+        <button class="btn-copy" id="copyBtn" aria-label="Copy output to clipboard">Copy</button>
+      </div>
+      <div class="output-content" id="outputContent" role="region" aria-live="polite" aria-label="Generated output"></div>
+    </div>
+  </div>
+
+  <!-- ── AD ZONE: MIDDLE ── -->
+  <div class="ad-zone middle" role="complementary" aria-label="Advertisement">
+    <span class="ad-zone-label">AD</span>
+    <div class="ad-zone-dot"></div>
+    <span class="ad-zone-text">Premium Ad Placement · 728×90</span>
+    <!-- Insert ad code here -->
+  </div>
+
+  <!-- ── FEATURES GRID ── -->
+  <div class="section-label">
+    <h2>Core Modules</h2>
+  </div>
+  <div class="cards-grid" role="list">
+
+    <div class="feature-card" role="listitem">
+      <div class="card-icon">📄</div>
+      <div class="card-name">Proposal Engine</div>
+      <p class="card-desc">Craft winning client proposals with scoped deliverables, timelines, and pricing that convert.</p>
+    </div>
+
+    <div class="feature-card" role="listitem">
+      <div class="card-icon">📝</div>
+      <div class="card-name">Contract Builder</div>
+      <p class="card-desc">Generate professional contracts with IP clauses, payment terms, and revision policies.</p>
+    </div>
+
+    <div class="feature-card" role="listitem">
+      <div class="card-icon">💰</div>
+      <div class="card-name">Invoice Creator</div>
+      <p class="card-desc">Produce itemized invoices with payment schedules, late fees, and bank details formatted perfectly.</p>
+    </div>
+
+    <div class="feature-card" role="listitem">
+      <div class="card-icon">✉️</div>
+      <div class="card-name">Email Composer</div>
+      <p class="card-desc">Draft cold outreach, follow-ups, scope changes, and client onboarding emails effortlessly.</p>
+    </div>
+
+    <div class="feature-card" role="listitem">
+      <div class="card-icon">🧑‍💼</div>
+      <div class="card-name">Bio Generator</div>
+      <p class="card-desc">Create compelling professional bios for LinkedIn, Upwork, Toptal, or personal portfolios.</p>
+    </div>
+
+    <div class="feature-card" role="listitem">
+      <div class="card-icon">🚀</div>
+      <div class="card-name">Rate Calculator</div>
+      <p class="card-desc">Benchmark your rates against industry data and generate custom rate sheets for clients.</p>
+    </div>
+
+  </div>
+
+  <!-- ── AD ZONE: BOTTOM ── -->
+  <div class="ad-zone bottom" role="complementary" aria-label="Advertisement">
+    <span class="ad-zone-label">AD</span>
+    <div class="ad-zone-dot"></div>
+    <span class="ad-zone-text">Premium Ad Placement · 300×250</span>
+    <!-- Insert ad code here -->
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-logo">SMART FREELANCE HUB</div>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/blog">Blog</a>
+      <a href="/contact">Contact</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </nav>
+    <p class="footer-copy">© 2025 Smart Freelance Hub. All rights reserved. Built for elite freelancers.</p>
+  </footer>
+
+</div><!-- /page -->
+
+<!-- ═══════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════ -->
+<script>
+/* ── CUSTOM CURSOR ── */
+(function() {
+  const cursor    = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursorRing');
+  if (!cursor) return;
+
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top  = my + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    cursorRing.style.left = rx + 'px';
+    cursorRing.style.top  = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('button, a, select, textarea, .tool-tab').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width  = '20px';
+      cursor.style.height = '20px';
+      cursorRing.style.width  = '50px';
+      cursorRing.style.height = '50px';
+      cursorRing.style.borderColor = 'var(--neon)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width  = '12px';
+      cursor.style.height = '12px';
+      cursorRing.style.width  = '36px';
+      cursorRing.style.height = '36px';
+      cursorRing.style.borderColor = 'var(--neon-dim)';
+    });
+  });
+})();
+
+/* ── PARALLAX TABLET ── */
+(function() {
+  const wrapper = document.getElementById('toolkitWrapper');
+  const tablet  = document.getElementById('toolkitTablet');
+  if (!wrapper || !tablet) return;
+  document.addEventListener('mousemove', e => {
+    const rect = wrapper.getBoundingClientRect();
+    const cx   = rect.left + rect.width / 2;
+    const cy   = rect.top  + rect.height / 2;
+    const dx   = (e.clientX - cx) / (rect.width  / 2);
+    const dy   = (e.clientY - cy) / (rect.height / 2);
+    tablet.style.transform = `rotateX(${-dy * 4}deg) rotateY(${dx * 4}deg)`;
+  });
+  wrapper.addEventListener('mouseleave', () => {
+    tablet.style.transform = 'rotateX(3deg) rotateY(-1deg)';
+  });
+})();
+
+/* ── CHAR COUNTER ── */
+(function() {
+  const ta = document.getElementById('userInput');
+  const cc = document.getElementById('charCounter');
+  if (!ta || !cc) return;
+  ta.addEventListener('input', () => {
+    const n = ta.value.length;
+    cc.textContent = `${n} / 1000`;
+    cc.className = 'char-counter' + (n > 900 ? ' danger' : n > 750 ? ' warning' : '');
+  });
+})();
+
+/* ── TOOL TABS ── */
+(function() {
+  const tabs = document.querySelectorAll('.tool-tab');
+  const ta   = document.getElementById('userInput');
+  const placeholders = {
+    proposal: 'e.g. 4-week web redesign for a fintech startup. Budget $8,000. Include timeline, deliverables, and payment terms...',
+    contract: 'e.g. Fixed-price contract for logo design. $2,500. 2 revision rounds. IP transfers upon full payment...',
+    invoice:  'e.g. Invoice for 40 hours of React development at $120/hr. Project: Dashboard Redesign. Due in 14 days...',
+    email:    'e.g. Follow-up email to a client who hasn\'t responded in 7 days about a $15k branding project...',
+    bio:      'e.g. Senior UX designer, 8 years experience, specializing in SaaS products and design systems. Remote, based in NYC...'
+  };
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      if (ta) ta.placeholder = placeholders[tab.dataset.type] || '';
+    });
+  });
+})();
+
+/* ── ANIMATED STATS COUNTER ── */
+(function() {
+  const cells = document.querySelectorAll('[data-target]');
+  if (!cells.length) return;
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el  = entry.target;
+      const end = parseInt(el.dataset.target, 10);
+      let   cur = 0;
+      const dur = 1800;
+      const step = end / (dur / 16);
+      const timer = setInterval(() => {
+        cur = Math.min(cur + step, end);
+        el.textContent = Math.floor(cur).toLocaleString() + '+';
+        if (cur >= end) clearInterval(timer);
+      }, 16);
+      observer.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+
+  cells.forEach(c => observer.observe(c));
+})();
+
+/* ── RIPPLE EFFECT ── */
+function addRipple(btn, e) {
+  const rect = btn.getBoundingClientRect();
+  const r = document.createElement('span');
+  r.className = 'ripple-effect';
+  const size = Math.max(rect.width, rect.height);
+  r.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px`;
+  btn.appendChild(r);
+  r.addEventListener('animationend', () => r.remove());
+}
+
+/* ── TOAST ── */
+function showToast(msg = 'Done!') {
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+/* ── COPY BUTTON ── */
+(function() {
+  const copyBtn = document.getElementById('copyBtn');
+  const output  = document.getElementById('outputContent');
+  if (!copyBtn || !output) return;
+
+  copyBtn.addEventListener('click', async () => {
+    const text = output.innerText.replace(/\n$/, '');
+    if (!text) return;
+    try {
+      await navigator.clipboard.writeText(text);
+      copyBtn.textContent = '✓ Copied!';
+      copyBtn.classList.add('copied');
+      showToast('Copied to clipboard ✓');
+      setTimeout(() => {
+        copyBtn.textContent = 'Copy';
+        copyBtn.classList.remove('copied');
+      }, 2000);
+    } catch {
+      showToast('Select text and copy manually');
+    }
+  });
+})();
+
+/* ── AI GENERATION (DEMO) ── */
+(function() {
+  const btn     = document.getElementById('generateBtn');
+  const btnText = document.getElementById('btnText');
+  const input   = document.getElementById('userInput');
+  const output  = document.getElementById('outputContent');
+  const wrapper = document.getElementById('outputWrapper');
+  const outTitle = document.getElementById('outputTitle');
+  const toneEl   = document.getElementById('toneSelect');
+  const lenEl    = document.getElementById('lengthSelect');
+  const indEl    = document.getElementById('industrySelect');
+
+  if (!btn) return;
+
+  const templates = {
+    proposal: (ctx) => `FREELANCE PROJECT PROPOSAL
+${'═'.repeat(50)}
+
+Prepared by: [Your Name / Studio]
+Date: ${new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'})}
+Industry: ${ctx.industry} | Tone: ${ctx.tone}
+
+───────────────────────────────────────────────
+EXECUTIVE SUMMARY
+───────────────────────────────────────────────
+Thank you for considering my services. Based on your brief, I've outlined a comprehensive engagement designed to deliver measurable outcomes for your project.
+
+${ctx.input ? `Project Context:\n${ctx.input}\n` : ''}
+───────────────────────────────────────────────
+SCOPE OF WORK
+───────────────────────────────────────────────
+Phase 1 — Discovery & Strategy (Week 1)
+  • Stakeholder interviews and requirements mapping
+  • Competitive analysis and benchmarking
+  • Technical architecture review
+
+Phase 2 — Design & Development (Weeks 2–3)
+  • Wireframes and high-fidelity mockups
+  • Iterative development with milestone check-ins
+  • Quality assurance and cross-device testing
+
+Phase 3 — Delivery & Launch (Week 4)
+  • Final deliverable handoff (source files + assets)
+  • Documentation and knowledge transfer
+  • 14-day post-launch support period
+
+───────────────────────────────────────────────
+INVESTMENT SUMMARY
+───────────────────────────────────────────────
+Project Fee:      $8,000 (fixed price)
+Payment Terms:    50% upfront · 50% on delivery
+Revision Rounds:  2 included
+Rush Surcharge:   +25% for delivery < 2 weeks
+
+───────────────────────────────────────────────
+TERMS & CONDITIONS
+───────────────────────────────────────────────
+• Intellectual property transfers upon receipt of final payment.
+• Additional revisions beyond scope: $150/hr.
+• Client to provide all content and assets within 5 business days.
+• Proposal valid for 14 days from issue date.
+
+Ready to get started? Reply to this proposal or schedule a kickoff call at your earliest convenience.
+
+Warmly,
+[Your Name]
+[your@email.com | yoursite.com]`,
+
+    contract: (ctx) => `FREELANCE SERVICE AGREEMENT
+${'═'.repeat(50)}
+
+Agreement Date: ${new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'})}
+Industry: ${ctx.industry}
+
+PARTIES
+This Agreement is entered into between:
+  • Service Provider: [Your Full Name / Company]
+  • Client: [Client Full Name / Company]
+
+PROJECT SCOPE
+${ctx.input || 'As mutually agreed and documented in the attached project brief.'}
+
+COMPENSATION
+  • Total Fee: [Amount]
+  • Payment Schedule: 50% upon signing; 50% upon delivery
+  • Late Payment: 1.5% per month on outstanding balances
+  • Accepted Methods: Bank Transfer / PayPal / Stripe
+
+INTELLECTUAL PROPERTY
+All work product, upon receipt of full payment, shall become the sole property of Client. Prior to full payment, all rights remain with the Service Provider.
+
+REVISIONS & CHANGE ORDERS
+Two (2) revision rounds are included. Additional revisions will be billed at the Provider's hourly rate of $[Rate]/hr.
+
+CONFIDENTIALITY
+Both parties agree to maintain confidentiality of proprietary information shared during this engagement for a period of two (2) years.
+
+TERMINATION
+Either party may terminate this agreement with 7 days written notice. Client shall pay for all work completed to date.
+
+SIGNATURES
+Service Provider: ___________________  Date: __________
+Client:           ___________________  Date: __________`,
+
+    invoice: (ctx) => `PROFESSIONAL INVOICE
+${'═'.repeat(50)}
+
+Invoice #: INV-${String(Math.floor(Math.random()*9000)+1000)}
+Issue Date: ${new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'})}
+Due Date: ${new Date(Date.now()+14*864e5).toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'})}
+
+FROM:
+  [Your Name / Studio Name]
+  [Address Line 1]
+  [City, State, ZIP]
+  [your@email.com]
+
+TO:
+  [Client Name]
+  [Client Company]
+  [Client Address]
+
+${'─'.repeat(50)}
+DESCRIPTION                          QTY    RATE    AMOUNT
+${'─'.repeat(50)}
+${ctx.input ? ctx.input.split('\n').slice(0,2).map(l=>`${l.padEnd(37)}1    —       —`).join('\n') : `Web Design & Development             1    $5,000  $5,000.00
+UI/UX Consulting (8 hrs)             8    $150    $1,200.00
+Project Management                   1    $800    $  800.00`}
+${'─'.repeat(50)}
+                         SUBTOTAL:           $7,000.00
+                         TAX (0%):           $    0.00
+                         ──────────────────────────────
+                         TOTAL DUE:          $7,000.00
+${'─'.repeat(50)}
+
+PAYMENT INSTRUCTIONS
+  Bank: [Your Bank Name]
+  Account: XXXXXX1234
+  Routing: 021000021
+  Reference: INV-2024-001
+
+NOTES
+  • Payment due within 14 days of invoice date.
+  • Late payments subject to 1.5%/month service charge.
+  • Thank you for your business!`,
+
+    email: (ctx) => `SUBJECT: Following Up — [Project Name] Proposal
+
+Hi [Client First Name],
+
+I hope this message finds you well. I'm reaching out to follow up on the proposal I sent over for [Project Name].
+
+${ctx.input ? `Context: ${ctx.input}\n` : ''}
+I understand decisions of this nature require careful consideration, and I want to make sure you have everything you need to move forward confidently.
+
+A few things I'd love to address:
+  • Any questions about the project scope or timeline
+  • Adjustments to the budget or payment structure
+  • A quick 15-minute call to align on expectations
+
+I'm genuinely excited about the potential to work together — the project aligns well with my expertise in ${ctx.industry}, and I believe we can deliver results that exceed your expectations.
+
+Please feel free to reply directly to this email or book a call using my scheduling link: [calendly.com/yourname]
+
+Looking forward to hearing from you.
+
+Best regards,
+[Your Name]
+[Title] | [Company]
+[Phone] | [Email]
+[Website]`,
+
+    bio: (ctx) => `PROFESSIONAL BIO — ${ctx.industry.toUpperCase()}
+${'═'.repeat(50)}
+
+SHORT VERSION (150 words)
+───────────────────────────
+[Your Name] is a ${ctx.industry} specialist with [X] years of experience helping brands scale through strategic design and execution. ${ctx.input ? ctx.input.split('.')[0] + '.' : 'Known for delivering high-impact work on time and on budget,'} [Your Name] has partnered with startups and Fortune 500 companies alike.
+
+LONG VERSION (300 words)
+───────────────────────────
+With a career spanning [X] years in ${ctx.industry}, [Your Name] has developed a reputation for delivering work that's not only visually compelling but measurably effective.
+
+${ctx.input || 'Specializing in the intersection of design, technology, and strategy, their approach combines rigorous research with bold creative execution — resulting in products and experiences that resonate.'}
+
+Past clients include [Brand A], [Brand B], and [Brand C]. Currently available for select projects and long-term retainer engagements.
+
+LINKEDIN HEADLINE
+───────────────────────────
+${ctx.industry} Expert | Helping Founders & Teams Build Products That Convert | [X]+ Years Experience
+
+UPWORK TAGLINE
+───────────────────────────
+Top-Rated ${ctx.industry} Specialist | ${new Date().getFullYear()} | Fast Delivery · Clear Communication · Measurable Results`
+  };
+
+  function getActiveType() {
+    const active = document.querySelector('.tool-tab.active');
+    return active ? active.dataset.type : 'proposal';
+  }
+
+  function typewrite(el, text, onDone) {
+    el.textContent = '';
+    const cursor = document.createElement('span');
+    cursor.className = 'typing-cursor';
+    el.appendChild(cursor);
+
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i < text.length) {
+        cursor.before(text[i]);
+        i++;
+        // Auto-scroll output
+        el.parentElement.scrollTop = el.parentElement.scrollHeight;
+      } else {
+        clearInterval(interval);
+        cursor.remove();
+        if (onDone) onDone();
+      }
+    }, 10);
+  }
+
+  btn.addEventListener('click', function(e) {
+    addRipple(this, e);
+
+    const type  = getActiveType();
+    const ctx   = {
+      input:    input ? input.value.trim() : '',
+      tone:     toneEl  ? toneEl.value  : 'professional',
+      length:   lenEl   ? lenEl.value   : 'standard',
+      industry: indEl   ? indEl.value   : 'tech'
+    };
+
+    // Loading state
+    btn.classList.add('loading');
+    btnText.innerHTML = '<span class="btn-spinner"></span>GENERATING...';
+
+    // Simulate AI latency
+    setTimeout(() => {
+      const text = templates[type] ? templates[type](ctx) : 'Output generated.';
+
+      // Show output
+      wrapper.classList.add('visible');
+      wrapper.style.animation = 'none';
+      void wrapper.offsetWidth;
+      wrapper.style.animation = '';
+
+      if (outTitle) {
+        const labels = { proposal:'PROPOSAL OUTPUT', contract:'CONTRACT OUTPUT', invoice:'INVOICE OUTPUT', email:'EMAIL OUTPUT', bio:'BIO OUTPUT' };
+        outTitle.textContent = labels[type] || 'AI OUTPUT';
+      }
+
+      typewrite(output, text, () => {});
+
+      // Reset button
+      btn.classList.remove('loading');
+      btnText.innerHTML = '⚡ GENERATE WITH AI';
+
+      // Scroll to output
+      setTimeout(() => wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    }, 1200 + Math.random() * 600);
+  });
+})();
+
+/* ── CARD REVEAL OBSERVER ── */
+(function() {
+  const cards = document.querySelectorAll('.feature-card');
+  if (!cards.length || !window.IntersectionObserver) return;
+  cards.forEach((c, i) => {
+    c.style.opacity = '0';
+    c.style.transform = 'translateY(30px)';
+    c.style.transition = `opacity 0.6s ease ${i * 0.08}s, transform 0.6s cubic-bezier(0.16,1,0.3,1) ${i * 0.08}s`;
+  });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = '';
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  cards.forEach(c => obs.observe(c));
+})();
+</script>
+
+</body>
+</html>
